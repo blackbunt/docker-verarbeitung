@@ -49,7 +49,7 @@ if [ "$youngfile" = false ] ; then
   find /downloads/RSScrawler/Drone/ -name '*.mkv' -exec mv {} /plex/.Temp/Drone/ \; &>/dev/null
   
   # Move YouTube Videos
-  mv /downloads/RSScrawler/YouTube/* /plex/YouTube/ \; &>/dev/null
+  mv /downloads/RSScrawler/YouTube/* /plex/YouTube/ &>/dev/null
   
   # Move Movies/Shows for Remuxing
   filebot -script /config/rename.groovy "/downloads/RSScrawler/Remux" --output "/downloads/Remux" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/downloads/Remux/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null

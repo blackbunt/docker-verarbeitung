@@ -1,8 +1,8 @@
 # docker-verarbeitung
 
-This container is designed to work in tandem with [https://github.com/rix1337/docker-rsscrawler](https://github.com/rix1337/docker-rsscrawler).
+This container is designed to work in tandem with [docker-rsscrawler](https://github.com/rix1337/docker-rsscrawler).
 
-This will rename/tag/delete Media files with Filebot. Use at your own risk.
+This will rename/tag/delete Media files with Filebot. Use at your own risk!
 
 ```
 docker run -d \

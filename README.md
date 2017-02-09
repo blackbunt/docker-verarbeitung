@@ -1,6 +1,8 @@
 # docker-verarbeitung
-Read through the github repo and fully understand what it does before you let it lose on your files!
-This will rename/tag/delete Media files with Filebot.
+
+This container is designed to work in tandem with [https://github.com/rix1337/docker-rsscrawler](https://github.com/rix1337/docker-rsscrawler).
+
+This will rename/tag/delete Media files with Filebot. Use at your own risk.
 
 ```
 docker run -d \

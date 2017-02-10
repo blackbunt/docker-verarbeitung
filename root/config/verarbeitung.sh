@@ -64,7 +64,7 @@ if [ "$youngfile" = false ] ; then
   fi
   
   # Move Movies/Shows for Sorting
-  filebot -script /config/rename.groovy "/downloads/RSScrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+  filebot -script /config/rename.groovy "/downloads/RSScrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def "ignore=Remux|YouTube|3Dcrawler" --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
 
   # Rename Show Qualities
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done

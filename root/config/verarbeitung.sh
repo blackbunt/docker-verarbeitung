@@ -50,7 +50,7 @@ if [ "$youngfile" = false ] ; then
   
   # Move YouTube Videos
   if [[ -d  /downloads/RSScrawler/YouTube ]]; then
-    mv /downloads/RSScrawler/YouTube/* /plex/YouTube/ &>/dev/null
+    rsync -abmv --remove-source-files /downloads/RSScrawler/YouTube/ /plex/YouTube/ &>/dev/null
   fi
   
   # Move Movies/Shows for Remuxing

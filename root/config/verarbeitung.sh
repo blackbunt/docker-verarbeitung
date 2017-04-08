@@ -9,12 +9,12 @@ echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor"
 while true
 do 
 youngfile=false
-# Find any mkv in RSScrawler folder
+# Find any mkv/mp4/mp3 in RSScrawler folder
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
-for f in $(find /downloads/RSScrawler/ -type f  -name '*.mkv');
+for f in $(find /downloads/RSScrawler/ -type f  -name '*.m*');
 do
-  # Check if the mkv has been modified (extracted) in the last 5 seconds
+  # Check if the mkv/mp4/mp3 has been modified (extracted) in the last 5 seconds
   if ! [ `stat --format=%Z $f` -le $(( `date +%s` - 5 )) ]; then
     youngfile=true
    echo "[$f wird gerade entpackt. Breche ab!]"
@@ -37,7 +37,9 @@ if [ "$youngfile" = false ] ; then
   find /plex/.Temp/ -name "*.idx" -type f -delete
   find /plex/.Temp/ -name "*.m3u" -type f -delete
   find /plex/.Temp/ -name "*.url" -type f -delete
-
+  find /downloads/RSScrawler/* -empty -type d -delete &>/dev/null
+  find /downloads/Remux/* -empty -type d -delete &>/dev/null
+  
   # Adding Tags
   find /downloads/RSScrawler/ -type f -name '*.mkv' | while read filename
   do

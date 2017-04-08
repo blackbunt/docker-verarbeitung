@@ -40,6 +40,6 @@ RUN \
 # To find the latest version: https://www.filebot.net/download.php?mode=s&type=deb&arch=amd64
 # We'll use a specific version for reproducible builds 
 RUN set -x \
-  && wget -N 'http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.7.2/filebot_4.7.2_amd64.deb' -O /root/filebot.deb \
+  && wget -N 'http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.7.9/filebot_4.7.9_amd64.deb' -O /root/filebot.deb \
   && dpkg -i /root/filebot.deb && rm /root/filebot.deb \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

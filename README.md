@@ -1,8 +1,10 @@
 # docker-verarbeitung
 
-This container is designed to work in tandem with [docker-rsscrawler](https://github.com/rix1337/docker-rsscrawler).
+**German! Do not let this lose on your English library.**
 
-This will rename/tag/delete Media files with Filebot. Use at your own risk!
+Dieser Container arbeitet mit [docker-rsscrawler](https://github.com/rix1337/docker-rsscrawler) zusammen und nutzt die "Recycle Bin" Funktion unter UNRAID. Ziel ist eine Aufbereitung für Plex.
+
+Dateien werden umbenannt, verschoben, getaggt, remuxt und ggf. gelöscht. Es empfiehlt sich also, das Script vorab zu studieren und "Verarbeitung" nur im vollen Bewusstsein der Konsequenzen zu nutzen.
 
 ```
 docker run -d \

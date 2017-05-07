@@ -72,6 +72,7 @@ if [ "$youngfile" = false ] ; then
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -576p.mkv' | while read f; do mv -v "$f" "${f%- -576p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -720p.mkv' | while read f; do mv -v "$f" "${f%- -720p.mkv}- WEBDL-720p.mkv"; done
+  find /plex/.Temp -type f -name '*- WEB-DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEBRip-720p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- Web-DL-720p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEB-DL-720p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-720p.mkv}- WEBDL-720p.mkv"; done

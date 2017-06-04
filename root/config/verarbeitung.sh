@@ -80,6 +80,7 @@ if [ "$youngfile" = false ] ; then
   find /plex/.Temp -type f -name '*- ithd-720p.mkv' | while read f; do mv -v "$f" "${f%- ithd-720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- iTunesHD-720p.mkv' | while read f; do mv -v "$f" "${f%- iTunesHD-720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- NetflixHD-720p.mkv' | while read f; do mv -v "$f" "${f%- NetflixHD-720p.mkv}- WEBDL-720p.mkv"; done
+  find /plex/.Temp -type f -name '*- NetflixUHD-720p.mkv' | while read f; do mv -v "$f" "${f%- NetflixUHD-720pp.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- BD-720p.mkv' | while read f; do mv -v "$f" "${f%- BD-720p.mkv}- BluRay-720p.mkv"; done
   find /plex/.Temp -type f -name '*- BDRip-720p.mkv' | while read f; do mv -v "$f" "${f%- BDRip-720p.mkv}- BluRay-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEBRip-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-1080p.mkv}- WEBDL-1080p.mkv"; done

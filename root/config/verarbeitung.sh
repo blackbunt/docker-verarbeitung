@@ -48,7 +48,6 @@ if [ "$youngfile" = false ] ; then
     mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" --edit track:a2 --set name="RiX" &>/dev/null
     mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" --edit track:a2 --set name="RiX" --edit track:a3 --set name="RiX" &>/dev/null
   done
-  find /downloads/RSScrawler/Drone/ -name '*.mkv' -exec mv {} /plex/.Temp/Drone/ \; &>/dev/null
   
   # Move YouTube Videos
   if [[ -d  /downloads/RSScrawler/YouTube ]]; then
@@ -72,6 +71,7 @@ if [ "$youngfile" = false ] ; then
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -576p.mkv' | while read f; do mv -v "$f" "${f%- -576p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -720p.mkv' | while read f; do mv -v "$f" "${f%- -720p.mkv}- WEBDL-720p.mkv"; done
+  find /plex/.Temp -type f -name '*- WEB.DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEB.DL-576p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEB-DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-576p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEBRip-720p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- Web-DL-720p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-720p.mkv}- WEBDL-720p.mkv"; done

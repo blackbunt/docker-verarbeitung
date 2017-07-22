@@ -24,6 +24,7 @@ IFS=$SAVEIFS
 # if no young file was found, execute the main script
 if [ "$youngfile" = false ] ; then
   # Remove Clutter
+  find /downloads/RSScrawler/ -name "*.nfo" -type f -delete
   find /downloads/RSScrawler/ -name "*.srt" -type f -delete
   find /downloads/RSScrawler/ -name "*.sub" -type f -delete
   find /downloads/RSScrawler/ -name "*.idx" -type f -delete

@@ -24,6 +24,7 @@ IFS=$SAVEIFS
 # if no young file was found, execute the main script
 if [ "$youngfile" = false ] ; then
   # Fixing Permissions
+  chown -R nobody:users /downloads/RSScrawler/
   chmod -R 666 /downloads/RSScrawler/
 
   # Remove Clutter
@@ -88,6 +89,10 @@ if [ "$youngfile" = false ] ; then
   find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done
+
+  # Fixing Permissions
+  chown -R nobody:users /plex/.Temp/
+  chmod -R 666 /plex/.Temp/
 
   # Verschiebe 3D-Filme
   ser=/plex/.Temp/3D-Filme

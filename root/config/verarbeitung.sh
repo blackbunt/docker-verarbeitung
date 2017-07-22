@@ -14,8 +14,8 @@ SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 for f in $(find /downloads/RSScrawler/ -type f  -name '*.m*');
 do
-  # Check if the mkv/mp4/mp3 has been modified (extracted) in the last 20 seconds
-  if ! [ `stat --format=%Z $f` -le $(( `date +%s` - 20 )) ]; then
+  # Check if the mkv/mp4/mp3 has been modified (extracted) in the last 5 seconds
+  if ! [ `stat --format=%Z $f` -le $(( `date +%s` - 5 )) ]; then
     youngfile=true
    echo "[$f wird gerade entpackt. Breche ab!]"
   fi
@@ -23,50 +23,51 @@ done
 IFS=$SAVEIFS
 # if no young file was found, execute the main script
 if [ "$youngfile" = false ] ; then
-  # Fixing Permissions
-  chown -R nobody:users /downloads/RSScrawler/
-  chmod -R 666 /downloads/RSScrawler/
-
   # Remove Clutter
   find /downloads/RSScrawler/ -name "*.srt" -type f -delete
   find /downloads/RSScrawler/ -name "*.sub" -type f -delete
   find /downloads/RSScrawler/ -name "*.idx" -type f -delete
   find /downloads/RSScrawler/ -name "*.m3u" -type f -delete
   find /downloads/RSScrawler/ -name "*.url" -type f -delete
-  find /plex/.Temp/ -name "*.srt" -type f -delete
-  find /plex/.Temp/ -name "*.sub" -type f -delete
-  find /plex/.Temp/ -name "*.idx" -type f -delete
-  find /plex/.Temp/ -name "*.m3u" -type f -delete
-  find /plex/.Temp/ -name "*.url" -type f -delete
   find /downloads/RSScrawler/* -empty -type d -delete &>/dev/null
   find /downloads/Remux/* -empty -type d -delete &>/dev/null
-  
-  # Adding Tags
-  find /downloads/RSScrawler/ -type f -name '*.mkv' | while read filename
-  do
-    echo "[Tagge $filename]"
-    mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" &>/dev/null
-    mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" --edit track:a2 --set name="RiX" &>/dev/null
-    mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" --edit track:a2 --set name="RiX" --edit track:a3 --set name="RiX" &>/dev/null
-  done
+  find /downloads/Temp/* -empty -type d -delete &>/dev/null
   
   # Move YouTube Videos
   if [[ -d  /downloads/RSScrawler/YouTube ]]; then
     rsync -abmv --exclude '*.part' --exclude '*.dashVideo' --exclude '*.dashAudio' --remove-source-files /downloads/RSScrawler/YouTube/ /plex/YouTube/ &>/dev/null
   fi
   
+  # Move MKVs keeping their relative path to temp
+  rsync -rv --include '*/' --include '*.mkv' --exclude '*' --remove-source-files --prune-empty-dirs /downloads/RSScrawler/ /downloads/Temp/
+fi
+# Check if Temp folder has files
+if test "$(ls -A "/downloads/Temp/")"; then
+  # Fix Permissions
+  chown -R nobody:users /downloads/Temp/
+  chmod -R 666 /downloads/Temp/
+  
+  # Add Tags
+  find /downloads/Temp/ -type f -name '*.mkv' | while read filename
+  do
+    echo "[Tagge $filename]"
+    mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" &>/dev/null
+    mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" --edit track:a2 --set name="RiX" &>/dev/null
+    mkvpropedit "$filename" --edit info --set title="RiX" --edit track:v1 --set name="RiX" --edit track:a1 --set name="RiX" --edit track:a2 --set name="RiX" --edit track:a3 --set name="RiX" &>/dev/null
+  done
+
   # Move Movies/Shows for Remuxing
-  if [[ -d  /downloads/RSScrawler/Remux ]]; then
-    filebot -script /config/rename.groovy "/downloads/RSScrawler/Remux" --output "/downloads/Remux" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/downloads/Remux/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+  if [[ -d  /downloads/Temp/Remux ]]; then
+    filebot -script /config/rename.groovy "/downloads/Temp/Remux" --output "/downloads/Remux" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/downloads/Remux/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
   fi
  
   # Move 3D-Movies
-  if [[ -d  /downloads/RSScrawler/3Dcrawler ]]; then
-    filebot -script /config/rename.groovy "/downloads/RSScrawler/3Dcrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/3D-Filme/{n} ({y}) [3D]/{n} ({y}) [3D].H-SBS" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+  if [[ -d  /downloads/Temp/3Dcrawler ]]; then
+    filebot -script /config/rename.groovy "/downloads/Temp/3Dcrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/3D-Filme/{n} ({y}) [3D]/{n} ({y}) [3D].H-SBS" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
   fi
   
   # Move Movies/Shows for Sorting
-  filebot -script /config/rename.groovy "/downloads/RSScrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def "ignore=Remux|YouTube|3Dcrawler" --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+  filebot -script /config/rename.groovy "/downloads/Temp" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def "ignore=Remux|YouTube|3Dcrawler" --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
 
   # Rename Show Qualities
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done
@@ -176,14 +177,14 @@ if [ "$youngfile" = false ] ; then
     j="$REPLY"
     fn="$(basename "$j")"             # $j in subshell must be quoted
     fd="$(readlink -f "$j")"          # absolute path
-    px="${j/\/downloads\/Remux\//\/downloads\/RSScrawler\/}" # destination (for muxing)
+    px="${j/\/downloads\/Remux\//\/downloads\/Temp\/}" # destination (for muxing)
     pl="${j/\/downloads\/Remux\//\/plex\/}" # 720p.mkv
 	rbin="${j/\/downloads\/Remux\//\/plex\/.Recycle.Bin\/}" # 720p.mkv
     pxd="$(dirname "$px")"            # destination dir
     if [ -f "$pl" ]; then
         printf "[Remuxe $fn zu zweisprachiger Datei in $pxd]\n"
         mkdir -p "$pxd"                   # Create the destination dirs
-        # Merge mkv at RSScrawler folder with Video from existing File (in Plex Library) and Subtitles, Chapters, and Audio from File at Remux
+        # Merge mkv at Temp folder with Video from existing File (in Plex Library) and Subtitles, Chapters, and Audio from File at Remux
         mkvmerge -o "$px" -A -S --no-chapters "$pl" -D "$j"
         # Create Folder at Recycle Bin and move Remux file there
         mkdir -p "$(dirname "$rbin")"
@@ -192,6 +193,7 @@ if [ "$youngfile" = false ] ; then
   done < <(find "$ser" -type f -name '*.mkv' -print0)
   find /downloads/Remux/* -empty -type d -delete &>/dev/null
 fi
+  
 # Wait a minute
 sleep 1m
 done

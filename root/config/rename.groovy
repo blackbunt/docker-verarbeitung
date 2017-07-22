@@ -308,7 +308,6 @@ input.each{ log.fine "Input: $it" }
 
 // early abort if there is nothing to do
 if (input.size() == 0) {
-	log.warning "No files selected for processing"
 	return
 }
 

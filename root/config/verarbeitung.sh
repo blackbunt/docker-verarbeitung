@@ -14,8 +14,8 @@ SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 for f in $(find /downloads/RSScrawler/ -type f  -name '*.m*');
 do
-  # Check if the mkv/mp4/mp3 has been modified (extracted) in the last 60 seconds
-  if ! [ `stat --format=%Z $f` -le $(( `date +%s` - 60 )) ]; then
+  # Check if the mkv/mp4/mp3 has been modified (extracted) in the last 20 seconds
+  if ! [ `stat --format=%Z $f` -le $(( `date +%s` - 20 )) ]; then
     youngfile=true
    echo "[$f wird gerade entpackt. Breche ab!]"
   fi

@@ -40,7 +40,7 @@ if [ "$youngfile" = false ] ; then
   fi
   
   # Move MKVs keeping their relative path to temp
-  rsync -rv --include '*/' --include '*.mkv' --exclude '*' --remove-source-files --prune-empty-dirs /downloads/RSScrawler/ /downloads/Temp/
+  rsync -rv --include '*/' --include '*.mkv' --exclude '*' --remove-source-files --prune-empty-dirs /downloads/RSScrawler/ /downloads/Temp/ &>/dev/null
 fi
 # Check if Temp folder has files
 if test "$(ls -A "/downloads/Temp/")"; then

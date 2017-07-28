@@ -25,11 +25,15 @@ IFS=$SAVEIFS
 if [ "$youngfile" = false ] ; then
   # Remove Clutter
   find /downloads/RSScrawler/ -name "*.nfo" -type f -delete
+  find /downloads/RSScrawler/ -name "*.log" -type f -delete
+  find /downloads/RSScrawler/ -name "*.sfv" -type f -delete
   find /downloads/RSScrawler/ -name "*.srt" -type f -delete
   find /downloads/RSScrawler/ -name "*.sub" -type f -delete
   find /downloads/RSScrawler/ -name "*.idx" -type f -delete
   find /downloads/RSScrawler/ -name "*.m3u" -type f -delete
   find /downloads/RSScrawler/ -name "*.url" -type f -delete
+  find /downloads/RSScrawler/ -name "*.jpg" -type f -delete
+  find /downloads/RSScrawler/ -name "*.html" -type f -delete
   find /downloads/RSScrawler/* -empty -type d -delete &>/dev/null
   find /downloads/Remux/* -empty -type d -delete &>/dev/null
   find /downloads/Temp/* -empty -type d -delete &>/dev/null

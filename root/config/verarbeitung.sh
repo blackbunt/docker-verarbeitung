@@ -79,6 +79,7 @@ if test "$(ls -A "/downloads/Temp/")"; then
   # Rename Show Qualities
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -576p.mkv' | while read f; do mv -v "$f" "${f%- -576p.mkv}- DVDRip-480p.mkv"; done
+  find /plex/.Temp -type f -name '*- DVDRip-576p.mkv' | while read f; do mv -v "$f" "${f%- DVDRip-576p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -720p.mkv' | while read f; do mv -v "$f" "${f%- -720p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEB.DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEB.DL-576p.mkv}- WEBDL-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEB-DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-576p.mkv}- WEBDL-720p.mkv"; done

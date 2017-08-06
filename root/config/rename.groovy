@@ -705,9 +705,3 @@ if (clean) {
 		}
 	}
 }
-
-
-
-if (destinationFiles.size() == 0) {
-	fail "Finished without processing any files"
-}

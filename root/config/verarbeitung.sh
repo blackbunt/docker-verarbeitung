@@ -5,6 +5,32 @@ echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor" >> $LOGFILE 2>&1
 # Log Timestamp
 echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor"
 
+mv_rct(){
+  # Move files from source directory to destination directory
+  # that are older than specified seconds, preserving relative path.
+  # Read file paths from standard input, null delimited.
+  local src=$1    # source dir, # must end with slash (/) and start with ./ or /
+  local dst=$2    # dest dir, # must end with slash (/) and start with ./ or /
+  local tth=$3    # only files older than specified seconds will be moved
+  while IFS=  read -r -d $'\0' f; do
+    local ct=$(date +%s)
+    local ft=$(stat -c %Z "$f")
+    local t=$((ct-ft))
+    printf "%s\n" "File: $f"
+    if (( t > tth )); then
+      local rp="${f#$src}"
+      local rd=$(dirname "$rp")
+      local dd="$dst$rd"
+      local dp="$dst$rp"
+      mkdir -p "$dd"
+      printf "%s\n" "Moving to $dp"
+      mv -f "$f" "$dp"
+    else
+      printf "%s\n" "This file's status change time is less than $tth seconds. (skipped)"
+    fi
+  done
+}
+
 # True is always true, thus loop indefinately
 while true
 do 
@@ -42,12 +68,16 @@ if [ "$youngfile" = false ] ; then
   find /downloads/Temp/* -empty -type d -delete &>/dev/null
   
   # Move YouTube Videos
-  if [[ -d  /downloads/RSScrawler/YouTube ]]; then
-    ionice -c2 -n1 rsync -abmv --exclude '*.part' --exclude '*.dashVideo' --exclude '*.dashAudio' --remove-source-files /downloads/RSScrawler/YouTube/ /plex/YouTube/ &>/dev/null
+   if [[ -d  /downloads/RSScrawler/YouTube ]]; then
+    src=/downloads/RSScrawler/YouTube/     # must end with slash (/) and start with ./ or /
+    dst=/plex/YouTube/                     # must end with slash (/) and start with ./ or /
+    mv_rct < <(find "$src" -type f ! -name '*.part' ! -name '*.dashVideo' ! -name '*.dashAudio' -print0) "$src" "$dst" 60
   fi
   
   # Move MKVs keeping their relative path to temp
-  ionice -c2 -n1 rsync -rv --include '*/' --include '*.mkv' --exclude '*' --remove-source-files --prune-empty-dirs /downloads/RSScrawler/ /downloads/Temp/ &>/dev/null
+  src=/downloads/RSScrawler/     # must end with slash (/) and start with ./ or /
+  dst=/downloads/Temp/           # must end with slash (/) and start with ./ or /
+  mv_rct < <(find "$src" -type f -name '*.mkv' -print0) "$src" "$dst" 60
 fi
 # Check if Temp folder has files
 if test "$(ls -A "/downloads/Temp/")"; then

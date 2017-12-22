@@ -71,13 +71,13 @@ if [ "$youngfile" = false ] ; then
    if [[ -d  /downloads/RSScrawler/YouTube ]]; then
     src=/downloads/RSScrawler/YouTube/     # must end with slash (/) and start with ./ or /
     dst=/plex/YouTube/                     # must end with slash (/) and start with ./ or /
-    mv_rct < <(find "$src" -type f ! -name '*.part' ! -name '*.dashVideo' ! -name '*.dashAudio' -print0) "$src" "$dst" 10
+    mv_rct < <(find "$src" -type f ! -name '*.part' ! -name '*.dashVideo' ! -name '*.dashAudio' -print0) "$src" "$dst" 5
   fi
   
   # Move MKVs keeping their relative path to temp
   src=/downloads/RSScrawler/     # must end with slash (/) and start with ./ or /
   dst=/downloads/Temp/           # must end with slash (/) and start with ./ or /
-  mv_rct < <(find "$src" -type f -name '*.mkv' -print0) "$src" "$dst" 10
+  mv_rct < <(find "$src" -type f -name '*.mkv' -print0) "$src" "$dst" 5
 fi
 # Check if Temp folder has files
 if test "$(ls -A "/downloads/Temp/")"; then

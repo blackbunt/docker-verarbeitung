@@ -126,6 +126,7 @@ if test "$(ls -A "/downloads/Temp/")"; then
   find /plex/.Temp -type f -name '*- BD-720p.mkv' | while read f; do mv -v "$f" "${f%- BD-720p.mkv}- BluRay-720p.mkv"; done
   find /plex/.Temp -type f -name '*- BDRip-720p.mkv' | while read f; do mv -v "$f" "${f%- BDRip-720p.mkv}- BluRay-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEBRip-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /plex/.Temp -type f -name '*- Web-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done

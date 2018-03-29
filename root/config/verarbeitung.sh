@@ -61,6 +61,7 @@ if [ "$youngfile" = false ] ; then
   find /downloads/RSScrawler/ -name "*.URL" -type f -delete
   find /downloads/RSScrawler/ -name "*.txt" -type f -delete
   find /downloads/RSScrawler/ -name "*.jpg" -type f -delete
+  find /downloads/RSScrawler/ -name "*.png" -type f -delete
   find /downloads/RSScrawler/ -name "*.html" -type f -delete
   find /downloads/RSScrawler/ -name "*.srr" -type f -delete
   find /downloads/RSScrawler/* -empty -type d -delete &>/dev/null

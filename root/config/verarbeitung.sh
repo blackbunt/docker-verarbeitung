@@ -97,16 +97,16 @@ if test "$(ls -A "/downloads/Temp/")"; then
 
   # Move Movies/Shows for Remuxing
   if [[ -d  /downloads/Temp/Remux ]]; then
-    ionice -c2 -n1 filebot -script /config/rename.groovy "/downloads/Temp/Remux" --output "/downloads/Remux" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/downloads/Remux/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+    filebot -script /config/rename.groovy "/downloads/Temp/Remux" --output "/downloads/Remux" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/downloads/Remux/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/downloads/Remux/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}"
   fi
  
   # Move 3D-Movies
   if [[ -d  /downloads/Temp/3Dcrawler ]]; then
-    ionice -c2 -n1 filebot -script /config/rename.groovy "/downloads/Temp/3Dcrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/3D-Filme/{n} ({y}) [3D]/{n} ({y}) [3D].H-SBS" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+    filebot -script /config/rename.groovy "/downloads/Temp/3Dcrawler" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/3D-Filme/{n} ({y}) [3D]/{n} ({y}) [3D].H-SBS" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}"
   fi
   
   # Move Movies/Shows for Sorting
-  ionice -c2 -n1 filebot -script /config/rename.groovy "/downloads/Temp" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def "ignore=Remux|YouTube|3Dcrawler" --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" &>/dev/null
+  filebot -script /config/rename.groovy "/downloads/Temp" --output "/plex/.Temp" --log-file "/log/Verarbeitung.log" --action move --conflict override -non-strict --def "ignore=Remux|YouTube|3Dcrawler" --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}"
 
   # Rename Show Qualities
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done

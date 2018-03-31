@@ -1,6 +1,7 @@
 #!/bin/bash
 
 LOGFILE="/log/Verarbeitung.log"
+export HOME=/log
 echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor" >> $LOGFILE 2>&1
 # Log Timestamp
 echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor"

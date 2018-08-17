@@ -31,15 +31,14 @@ RUN \
   echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y wget rsync libmediainfo-dev mkvtoolnix oracle-java8-installer && \
+  apt-get install -y wget mkvtoolnix oracle-java8-installer && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer && \
   chmod -R +x /config && \
   chown -R nobody:users /config
   
-# To find the latest version: https://www.filebot.net/download.php?mode=s&type=deb&arch=amd64
-# We'll use a specific version for reproducible builds 
-RUN set -x \
-  && wget -N 'http://downloads.sourceforge.net/project/filebot/filebot/FileBot_4.7.9/filebot_4.7.9_amd64.deb' -O /root/filebot.deb \
-  && dpkg -i /root/filebot.deb && rm /root/filebot.deb \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN curl -fsSL https://raw.githubusercontent.com/filebot/plugins/master/gpg/maintainer.pub | apt-key add \
+ && echo "deb [arch=amd64] https://get.filebot.net/deb/ stable main" > /etc/apt/sources.list.d/filebot.list \
+ && apt-get update \
+ && apt-get install -y filebot mediainfo libchromaprint-tools curl file inotify-tools \
+ && rm -rvf /var/lib/apt/lists/*

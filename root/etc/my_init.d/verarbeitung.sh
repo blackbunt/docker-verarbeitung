@@ -1,4 +1,4 @@
 #!/bin/bash
 
-chmod +x /config/verarbeitung.sh
-/config/verarbeitung.sh
+chmod +x /opt/verarbeitung.sh
+/opt/verarbeitung.sh

@@ -34,8 +34,8 @@ RUN \
   apt-get install -y wget mkvtoolnix oracle-java8-installer && \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer && \
-  chmod -R +x /config && \
-  chown -R nobody:users /config
+  chmod -R +x /opt && \
+  chown -R nobody:users /opt
   
 RUN curl -fsSL https://raw.githubusercontent.com/filebot/plugins/master/gpg/maintainer.pub | apt-key add \
  && echo "deb [arch=amd64] https://get.filebot.net/deb/ stable main" > /etc/apt/sources.list.d/filebot.list \

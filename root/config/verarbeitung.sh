@@ -5,6 +5,8 @@ export HOME=/log
 echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor" >> $LOGFILE 2>&1
 # Log Timestamp
 echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor"
+# Install FileBot license
+filebot --license /log/*.psm
 
 mv_rct(){
   # Move files from source directory to destination directory

@@ -6,7 +6,10 @@ echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor" >> $LOGFILE 2>&1
 # Log Timestamp
 echo "$(date "+%d.%m.%Y %T") : Starte Verarbeitungsmonitor"
 # Install FileBot license
-filebot --license /log/*.psm
+if [ ! -f /config/.licensed ]; then
+  filebot --license /log/*.psm
+  touch /config/.licensed
+fi
 
 mv_rct(){
   # Move files from source directory to destination directory

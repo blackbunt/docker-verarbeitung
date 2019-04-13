@@ -26,8 +26,9 @@ VOLUME ["/config", "/downloads", "/plex"]
 ADD root/ /
 RUN chmod +x /etc/my_init.d/*.sh
 
-# Install MKVtoolnix/Mediainfo/rsync
+# Install OpenJDK/MKVtoolnix/Mediainfo/rsync
 RUN \
+  add-apt-repository ppa:openjdk-r/ppa && \
   apt-get update && \
   apt-get install -y wget mkvtoolnix openjdk-11-jre && \
   chmod -R +x /opt && \

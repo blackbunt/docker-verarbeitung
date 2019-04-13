@@ -26,14 +26,10 @@ VOLUME ["/config", "/downloads", "/plex"]
 ADD root/ /
 RUN chmod +x /etc/my_init.d/*.sh
 
-# Install Java/MKVtoolnix/Mediainfo/rsync
+# Install MKVtoolnix/Mediainfo/rsync
 RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y wget mkvtoolnix oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer && \
+  apt-get install -y wget mkvtoolnix openjdk-11-jre && \
   chmod -R +x /opt && \
   chown -R nobody:users /opt
   

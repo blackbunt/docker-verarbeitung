@@ -34,6 +34,9 @@ RUN \
   chmod -R +x /opt && \
   chown -R nobody:users /opt
   
+# Update Keystore
+RUN update-ca-certificates -f
+  
 RUN curl -fsSL https://raw.githubusercontent.com/filebot/plugins/master/gpg/maintainer.pub | apt-key add \
  && echo "deb [arch=amd64] https://get.filebot.net/deb/ stable main" > /etc/apt/sources.list.d/filebot.list \
  && apt-get update \

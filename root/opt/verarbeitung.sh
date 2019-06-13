@@ -56,6 +56,8 @@ IFS=$SAVEIFS
 # if no young file was found, execute the main script
 if [ "$youngfile" = false ] ; then
   # Remove Clutter
+  find /downloads/RSScrawler/ -name "*.NFO" -type f -delete
+  find /downloads/RSScrawler/ -name "*-sample.mkv" -type f -delete
   find /downloads/RSScrawler/ -name "*.nfo" -type f -delete
   find /downloads/RSScrawler/ -name "*.log" -type f -delete
   find /downloads/RSScrawler/ -name "*.sfv" -type f -delete
@@ -133,8 +135,9 @@ if test "$(ls -A "/downloads/Temp/")"; then
   find /plex/.Temp -type f -name '*- BD-720p.mkv' | while read f; do mv -v "$f" "${f%- BD-720p.mkv}- BluRay-720p.mkv"; done
   find /plex/.Temp -type f -name '*- BDRip-720p.mkv' | while read f; do mv -v "$f" "${f%- BDRip-720p.mkv}- BluRay-720p.mkv"; done
   find /plex/.Temp -type f -name '*- WEBRip-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-1080p.mkv}- WEBDL-1080p.mkv"; done
-  find /plex/.Temp -type f -name '*- Web-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
-  find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /plex/.Temp -type f -name '*- NetflixHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /plex/.Temp -type f -name '*- NetflixUHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv";  find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done
 

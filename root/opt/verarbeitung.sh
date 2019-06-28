@@ -228,8 +228,9 @@ if test "$(ls -A "/downloads/Temp/")"; then
     fn="$(basename "$j")"             # $j in subshell must be quoted
     fd="$(readlink -f "$j")"          # absolute path
     px="${j/\/downloads\/Remux\//\/downloads\/Temp\/}" # destination (for muxing)
-    pl="${j/\/downloads\/Remux\//\/plex\/}" # 720p.mkv
-	rbin="${j/\/downloads\/Remux\//\/plex\/.Recycle.Bin\/}" # 720p.mkv
+    plo="${j/\/downloads\/Remux\//\/plex\/}" # The current non DL File with wrong resolution in filename
+    pl="${plo/-1080p/-720p}" # The current non DL File with fixed resolution string in filename
+    rbin="${j/\/downloads\/Remux\//\/plex\/.Recycle.Bin\/}" # 720p.mkv
     pxd="$(dirname "$px")"            # destination dir
     if [ -f "$pl" ]; then
         printf "[Remuxe $fn zu zweisprachiger Datei in $pxd]\n"

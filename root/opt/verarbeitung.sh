@@ -227,7 +227,8 @@ if test "$(ls -A "/downloads/Temp/")"; then
     j="$REPLY"
     fn="$(basename "$j")"             # $j in subshell must be quoted
     fd="$(readlink -f "$j")"          # absolute path
-    px="${j/\/downloads\/Remux\//\/downloads\/Temp\/}" # destination (for muxing)
+    pxo="${j/\/downloads\/Remux\//\/downloads\/Temp\/}" # destination (for muxing) with wrong resolution in filename
+    px="${pxo/-1080p/-720p}" # destination (for muxing) with fixed resolution string in filename
     plo="${j/\/downloads\/Remux\//\/plex\/}" # The current non DL File with wrong resolution in filename
     pl="${plo/-1080p/-720p}" # The current non DL File with fixed resolution string in filename
     rbin="${j/\/downloads\/Remux\//\/plex\/.Recycle.Bin\/}" # 720p.mkv

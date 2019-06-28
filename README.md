@@ -1,6 +1,6 @@
 # docker-verarbeitung
 
-**German! Do not let this lose on your English library.**
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J4Y2R6)
 
 Filebot benötigt eine gültige Lizenz:
 https://www.filebot.net/purchase.html

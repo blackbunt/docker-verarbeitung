@@ -116,7 +116,7 @@ if test "$(ls -A "/downloads/Temp/")"; then
   # Move Movies/Shows for Sorting
   filebot -script /opt/amc.groovy "/downloads/Temp" --output "/plex/.Temp" --log-file "/config/Verarbeitung.log" --action move --conflict override -non-strict --def "ignore=Remux|YouTube|3Dcrawler" --def music=n --def skipExtract=y --def clean=y --log info --lang "de" --def "seriesFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}" "movieFormat=/plex/.Temp/{fn =~ /3d/ ? '3D-Filme' : 'Filme'}/{n} ({y}){fn =~ /3d/ ? ' [3D]' : ''}/{n} ({y}){fn =~ /3d/ ? ' [3D].H-SBS' : ''} - {source}-{vf}" --def "animeFormat=/plex/.Temp/Serien/{n}/{'S'+s.pad(2)}/{s00e00} - {t} - {source}-{vf}"
 
-  # Rename Show Qualities
+  # Rename Movies/Show Qualities
   find /plex/.Temp -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- -576p.mkv' | while read f; do mv -v "$f" "${f%- -576p.mkv}- DVDRip-480p.mkv"; done
   find /plex/.Temp -type f -name '*- DVDRip-576p.mkv' | while read f; do mv -v "$f" "${f%- DVDRip-576p.mkv}- DVDRip-480p.mkv"; done
@@ -140,6 +140,31 @@ if test "$(ls -A "/downloads/Temp/")"; then
   find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done
+
+  # Rename Remux Qualities
+  find /downloads/Remux -type f -name '*- -480p.mkv' | while read f; do mv -v "$f" "${f%- -480p.mkv}- DVDRip-480p.mkv"; done
+  find /downloads/Remux -type f -name '*- -576p.mkv' | while read f; do mv -v "$f" "${f%- -576p.mkv}- DVDRip-480p.mkv"; done
+  find /downloads/Remux -type f -name '*- DVDRip-576p.mkv' | while read f; do mv -v "$f" "${f%- DVDRip-576p.mkv}- DVDRip-480p.mkv"; done
+  find /downloads/Remux -type f -name '*- -720p.mkv' | while read f; do mv -v "$f" "${f%- -720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEB.DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEB.DL-576p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEB-DL-576p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-576p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEBRip-720p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- Web-DL-720p.mkv' | while read f; do mv -v "$f" "${f%- Web-DL-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEB-DL-720p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEB.DL-720p.mkv' | while read f; do mv -v "$f" "${f%- WEB.DL-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- ithd-720p.mkv' | while read f; do mv -v "$f" "${f%- ithd-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- iTunesHD-720p.mkv' | while read f; do mv -v "$f" "${f%- iTunesHD-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- AmazonHD-720p.mkv' | while read f; do mv -v "$f" "${f%- AmazonHD-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- NetflixHD-720p.mkv' | while read f; do mv -v "$f" "${f%- NetflixHD-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- NetflixUHD-720p.mkv' | while read f; do mv -v "$f" "${f%- NetflixUHD-720p.mkv}- WEBDL-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- BD-720p.mkv' | while read f; do mv -v "$f" "${f%- BD-720p.mkv}- BluRay-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- BDRip-720p.mkv' | while read f; do mv -v "$f" "${f%- BDRip-720p.mkv}- BluRay-720p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEBRip-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEBRip-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /downloads/Remux -type f -name '*- NetflixHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- NetflixHD-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /downloads/Remux -type f -name '*- NetflixUHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- NetflixUHD-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /downloads/Remux -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
+  find /downloads/Remux -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
+  find /downloads/Remux -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done
 
   # Fixing Permissions
   chown -R nobody:users /plex/.Temp/

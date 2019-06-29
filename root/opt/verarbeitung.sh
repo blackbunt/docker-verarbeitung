@@ -138,7 +138,7 @@ if test "$(ls -A "/downloads/Temp/")"; then
   find /plex/.Temp -type f -name '*- NetflixHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- NetflixHD-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- NetflixUHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- NetflixUHD-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
-  find /plex/.Temp -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
+  find /plex/.Temp -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- WEBDL-1080p.mkv"; done
   find /plex/.Temp -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done
 
   # Rename Remux Qualities
@@ -163,7 +163,7 @@ if test "$(ls -A "/downloads/Temp/")"; then
   find /downloads/Remux -type f -name '*- NetflixHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- NetflixHD-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /downloads/Remux -type f -name '*- NetflixUHD-1080p.mkv' | while read f; do mv -v "$f" "${f%- NetflixUHD-1080p.mkv}- WEBDL-1080p.mkv"; done
   find /downloads/Remux -type f -name '*- WEB-DL-1080p.mkv' | while read f; do mv -v "$f" "${f%- WEB-DL-1080p.mkv}- WEBDL-1080p.mkv"; done
-  find /downloads/Remux -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- BluRay-1080p.mkv"; done
+  find /downloads/Remux -type f -name '*- -1080p.mkv' | while read f; do mv -v "$f" "${f%- -1080p.mkv}- WEBDL-1080p.mkv"; done
   find /downloads/Remux -type f -name '*- BD-1080p.mkv' | while read f; do mv -v "$f" "${f%*- BD-1080p.mkv}- BluRay-1080p.mkv"; done
 
   # Fixing Permissions

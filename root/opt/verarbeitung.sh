@@ -40,54 +40,40 @@ mv_rct(){
 # True is always true, thus loop indefinately
 while true
 do 
-youngfile=false
-# Find any mkv/mp4/mp3 in RSScrawler folder
-SAVEIFS=$IFS
-IFS=$(echo -en "\n\b")
-for f in $(find /downloads/RSScrawler/ -type f  -name '*.m*');
-do
-  # Check if the mkv/mp4/mp3 has been modified (extracted) in the last 5 seconds
-  if ! [ `stat --format=%Z $f` -le $(( `date +%s` - 5 )) ]; then
-    youngfile=true
-   echo "[$f wird gerade entpackt. Breche ab!]"
-  fi
-done
-IFS=$SAVEIFS
-# if no young file was found, execute the main script
-if [ "$youngfile" = false ] ; then
-  # Remove Clutter
-  find /downloads/RSScrawler/ -name "*.NFO" -type f -delete
-  find /downloads/RSScrawler/ -name "*-sample.mkv" -type f -delete
-  find /downloads/RSScrawler/ -name "*.nfo" -type f -delete
-  find /downloads/RSScrawler/ -name "*.log" -type f -delete
-  find /downloads/RSScrawler/ -name "*.sfv" -type f -delete
-  find /downloads/RSScrawler/ -name "*.srt" -type f -delete
-  find /downloads/RSScrawler/ -name "*.sub" -type f -delete
-  find /downloads/RSScrawler/ -name "*.idx" -type f -delete
-  find /downloads/RSScrawler/ -name "*.m3u" -type f -delete
-  find /downloads/RSScrawler/ -name "*.url" -type f -delete
-  find /downloads/RSScrawler/ -name "*.URL" -type f -delete
-  find /downloads/RSScrawler/ -name "*.txt" -type f -delete
-  find /downloads/RSScrawler/ -name "*.jpg" -type f -delete
-  find /downloads/RSScrawler/ -name "*.png" -type f -delete
-  find /downloads/RSScrawler/ -name "*.html" -type f -delete
-  find /downloads/RSScrawler/ -name "*.srr" -type f -delete
-  find /downloads/RSScrawler/* -empty -type d -delete &>/dev/null
-  find /downloads/Remux/* -empty -type d -delete &>/dev/null
-  find /downloads/Temp/* -empty -type d -delete &>/dev/null
-  
-  # Move YouTube Videos
-   if [[ -d  /downloads/RSScrawler/YouTube ]]; then
-    src=/downloads/RSScrawler/YouTube/     # must end with slash (/) and start with ./ or /
-    dst=/plex/YouTube/                     # must end with slash (/) and start with ./ or /
-    mv_rct < <(find "$src" -type f ! -name '*.part' ! -name '*.dashVideo' ! -name '*.dashAudio' -print0) "$src" "$dst" 5
-  fi
-  
-  # Move MKVs keeping their relative path to temp
-  src=/downloads/RSScrawler/     # must end with slash (/) and start with ./ or /
-  dst=/downloads/Temp/           # must end with slash (/) and start with ./ or /
-  mv_rct < <(find "$src" -type f -name '*.mkv' -print0) "$src" "$dst" 5
+
+# Remove Clutter
+find /downloads/RSScrawler/ -name "*.NFO" -type f -delete
+find /downloads/RSScrawler/ -name "*-sample.mkv" -type f -delete
+find /downloads/RSScrawler/ -name "*.nfo" -type f -delete
+find /downloads/RSScrawler/ -name "*.log" -type f -delete
+find /downloads/RSScrawler/ -name "*.sfv" -type f -delete
+find /downloads/RSScrawler/ -name "*.srt" -type f -delete
+find /downloads/RSScrawler/ -name "*.sub" -type f -delete
+find /downloads/RSScrawler/ -name "*.idx" -type f -delete
+find /downloads/RSScrawler/ -name "*.m3u" -type f -delete
+find /downloads/RSScrawler/ -name "*.url" -type f -delete
+find /downloads/RSScrawler/ -name "*.URL" -type f -delete
+find /downloads/RSScrawler/ -name "*.txt" -type f -delete
+find /downloads/RSScrawler/ -name "*.jpg" -type f -delete
+find /downloads/RSScrawler/ -name "*.png" -type f -delete
+find /downloads/RSScrawler/ -name "*.html" -type f -delete
+find /downloads/RSScrawler/ -name "*.srr" -type f -delete
+find /downloads/RSScrawler/* -empty -type d -delete &>/dev/null
+find /downloads/Remux/* -empty -type d -delete &>/dev/null
+find /downloads/Temp/* -empty -type d -delete &>/dev/null
+
+# Move YouTube Videos
+if [[ -d  /downloads/RSScrawler/YouTube ]]; then
+src=/downloads/RSScrawler/YouTube/     # must end with slash (/) and start with ./ or /
+dst=/plex/YouTube/                     # must end with slash (/) and start with ./ or /
+mv_rct < <(find "$src" -type f ! -name '*.part' ! -name '*.dashVideo' ! -name '*.dashAudio' -print0) "$src" "$dst" 5
 fi
+
+# Move MKVs keeping their relative path to temp
+src=/downloads/RSScrawler/     # must end with slash (/) and start with ./ or /
+dst=/downloads/Temp/           # must end with slash (/) and start with ./ or /
+mv_rct < <(find "$src" -type f -name '*.mkv' -print0) "$src" "$dst" 5
+
 # Check if Temp folder has files
 if test "$(ls -A "/downloads/Temp/")"; then
   # Fix Permissions
@@ -205,7 +191,7 @@ if test "$(ls -A "/downloads/Temp/")"; then
     pxd="$(dirname "$px")"            # destination dir
     printf "[Verschiebe $fn nach: $pxd\n"
     # This find command will move the existing file to recycle bin
-    find "$pxd" -type f -name "$fn" -exec \
+    find "$pxd" -type f -name "*.mkv" -exec \
         bash -c 'rbin="${0/\/plex\//\/plex\/.Recycle.Bin\/}"
         mkdir -p "$(dirname "$rbin")"
         printf "Und vorhandene Datei nach: $rbin]\n"

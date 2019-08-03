@@ -79,6 +79,8 @@ if test "$(ls -A "/downloads/Temp/")"; then
   # Fix Permissions
   chown -R nobody:users /downloads/Temp/
   chmod -R 666 /downloads/Temp/
+  chown -R nobody:users /downloads/Remux/
+  chmod -R 666 /downloads/Remux/
   
   # Add Tags
   find /downloads/Temp/ -type f -name '*.mkv' | while read filename

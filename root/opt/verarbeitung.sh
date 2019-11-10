@@ -43,6 +43,7 @@ do
 
 # Remove Clutter
 find /downloads/RSScrawler/ -name "*.NFO" -type f -delete
+find /downloads/RSScrawler/ -name "*.JPG" -type f -delete
 find /downloads/RSScrawler/ -name "*-sample.mkv" -type f -delete
 find /downloads/RSScrawler/ -name "*.nfo" -type f -delete
 find /downloads/RSScrawler/ -name "*.log" -type f -delete
